@@ -69,10 +69,6 @@
 %%%%%%%%%%%%%%%%% ABSTRACT %%%%%%%%%%%%%%%%%
 \input{content/abstract}
 
-\pagenumbering{arabic}
-
-
-
 %%%%%%%%%%%%%%%%% CONTENIDO %%%%%%%%%%%%%%%%%
 
 \input{content/contenido}
@@ -81,8 +77,8 @@
 \newpage
 % Hay 2 formas de agregar bibliografia:
 % 1. Agregar una bibliografia en un archivo .bib (Es super automatico)
-% \bibliographystyle{apacite}
-% \bibliography{mybib.bib} % Requiere crear un archivo .bib
+%    En el preambulo: \usepackage[style=apa]{biblatex} y \addbibresource{mybib.bib}
+% \printbibliography[title={REFERENCIAS BIBLIOGRÁFICAS}] % Requiere compilar con biber
 
 % 2. Agregar una bibliografia en un archivo .tex
 % (Es manual, pero comodo para los que no conoce el bibtex)
