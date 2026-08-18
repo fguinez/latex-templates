@@ -2,7 +2,6 @@
 \NeedsTeXFormat{LaTeX2e}                    % Requiere formato LaTeX2e
 \ProvidesClass{style}                       % Define la clase del documento
 \LoadClass[12pt]{article}                   % Carga la clase de artículo con tamaño de fuente de 12pt
-\RequirePackage{fullpage}                   % Utiliza la página completa
 \RequirePackage[spanish, es-noshorthands]{babel} % Configuración de idioma español
 \selectlanguage{spanish}                    % Selecciona el idioma español
 \addto\captionsspanish{                     % Renombramos los indices
@@ -24,7 +23,7 @@
 \RequirePackage{xspace}                     % Agrega espacios automáticamente después de comandos
 \RequirePackage{microtype}                  % Mejora el espaciado entre letras para una apariencia más agradable
 \RequirePackage{setspace}                   % Permite controlar el interlineado
-\setstretch{1.2}                            % Establece el interlineado
+\setstretch{1.0}                            % Establece el interlineado
 \setlength{\parindent}{1.27cm}              % Establece la sangría de los párrafos
 \RequirePackage{ulem}                       % Permite tachar el texto
 \RequirePackage{textcomp}                   % Añade símbolos especiales como el símbolo de copyright
@@ -79,7 +78,7 @@
 \RequirePackage{placeins}                   % Controla la ubicación de las figuras
 \RequirePackage[most]{tcolorbox}            % Creación de cajas de colores
 \RequirePackage{bm}                         % Mejora el manejo de símbolos en negritas en matemáticas
-\RequirePackage[natbibapa]{apacite}
+\RequirePackage{natbib}                     % Citas \citep y \citet; no se usa apacite porque quedó en APA 6
 \RequirePackage{adjustbox}
 
 % ====== Opcionales ======
@@ -214,8 +213,8 @@
 \endgroup%
 }%
 
-% configuramos numeros de pagina desactivados hasta que se quiera
-\pagenumbering{gobble}
+% La guía exige numerar a partir de la portada
+\pagenumbering{arabic}
 %%%%%%%%%%%%%%%%%%%%%%% CAPTION %%%%%%%%%%%%%%%%%%%%%%%
 \captionsetup[table]{format=plain, font=small, justification=centering, skip=1pt, singlelinecheck=false}
 
