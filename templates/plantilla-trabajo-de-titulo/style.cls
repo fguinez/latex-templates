@@ -34,6 +34,12 @@
 \RequirePackage{mfirstuc}                    % Agrega comandos para capitalizar
 \RequirePackage{dirtytalk}                  % Facilita la adición de comillas
 \RequirePackage{soul}                       % Permite resaltar y decorar texto
+% Espacia las letras de una palabra sin escribir espacios en el texto (la guía
+% titula la portadilla de anexos "A N E X O S"). No se usa \textls de microtype
+% porque XeLaTeX no puede espaciar una fuente Type 1 heredada como ptm: avisa
+% "is a legacy font. Cannot letterspace it" y la deja sin espaciar. soul
+% funciona en cualquier motor.
+\sodef\spacedletters{}{0.4em}{0.5em}{0.5em}
 \RequirePackage{bold-extra}                 % Permite utilizar negritas en texto monoespaciado
 \RequirePackage{lscape}                     % Permite orientación horizontal de las páginas
 % scrlayer-scrpage debe cargarse ANTES de titlesec: ambos definen
