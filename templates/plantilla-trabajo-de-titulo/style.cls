@@ -74,6 +74,10 @@
 \RequirePackage{ifthen}                     % Soporte para condicionales en el documento
 \RequirePackage[shortlabels]{enumitem}      % Personalización de listas enumeradas y con viñetas
 \RequirePackage[colorlinks=true, linkcolor=black, urlcolor=blue]{hyperref} % Enlaces clicables
+% Ancla + entrada de índice para los títulos sin numerar (\section*): sin
+% \phantomsection el enlace del índice apunta al último destino conocido, que
+% suele ser la página anterior.
+\newcommand{\tocsection}[1]{\phantomsection\addcontentsline{toc}{section}{#1}}
 \RequirePackage{multicol}                   % Soporte para multicolumnas
 \RequirePackage[per-mode = symbol]{siunitx} % Para manejar unidades SI
 \RequirePackage{commath}                    % Mejora la estética en matemáticas
@@ -250,7 +254,7 @@
 
 \newcommand{\startannex}[2]{%
     \section*{Anexo #1: #2} % Print the annex title without numbering
-    \addcontentsline{toc}{section}{Anexo #1. #2} % Add to the table of contents
+    \tocsection{Anexo #1. #2} % Add to the table of contents
     \setcounter{subsection}{0} % Reset subsection counter
     \setcounter{figure}{0} % Reset figure counter for the annex
     \renewcommand{\thesubsection}{#1.\arabic{subsection}} % Set subsection numbering as A.1, A.2, etc.
