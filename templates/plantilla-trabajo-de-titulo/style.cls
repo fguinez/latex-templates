@@ -79,7 +79,11 @@
 \RequirePackage{wallpaper}                  % Permite utilizar fondos de pantalla en el documento
 \RequirePackage{ifthen}                     % Soporte para condicionales en el documento
 \RequirePackage[shortlabels]{enumitem}      % Personalización de listas enumeradas y con viñetas
-\RequirePackage[colorlinks=true, linkcolor=black, urlcolor=blue]{hyperref} % Enlaces clicables
+% citecolor=black: por omisión hyperref imprime las citas en verde, y la guía no
+% admite texto de color en el cuerpo. Solo las URLs, que APA 7 pide dejar
+% visibles en las referencias, quedan en azul.
+\RequirePackage[colorlinks=true, linkcolor=black, citecolor=black,
+  urlcolor=blue]{hyperref} % Enlaces clicables
 % Ancla + entrada de índice para los títulos sin numerar (\section*): sin
 % \phantomsection el enlace del índice apunta al último destino conocido, que
 % suele ser la página anterior.
