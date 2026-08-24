@@ -240,8 +240,8 @@
   \begin{figure}[H]
     \centering
     \begin{measuredfigure}
-        \ifx\relax#1\else\label{img:#1}\fi
         \ifx\relax#2\else\caption{#2\vspace{2ex}}\fi
+        \ifx\relax#1\else\label{img:#1}\fi
         \includegraphics[#3]{#4}%
     \end{measuredfigure}
   \end{figure}%
@@ -250,8 +250,8 @@
     \begin{wrapfigure}{#5}{0.25\textwidth} % Margen texto 0.25
         \centering
         \begin{measuredfigure}
-            \ifx\relax#1\else\label{img:#1}\fi
             \ifx\relax#2\else\caption{#2}\fi
+            \ifx\relax#1\else\label{img:#1}\fi
             \includegraphics[#3]{#4} %[scale=0.1]
         \end{measuredfigure}
     \end{wrapfigure}
@@ -261,8 +261,8 @@
     \begin{table}[H]
         \centering
         \begin{measuredfigure}
-            \label{Tab:#1}
             \caption{#2}
+            \label{Tab:#1}
             \includegraphics[#3]{#4}
         \end{measuredfigure}
         \\ \textit{\scriptsize{#5}}
