@@ -181,6 +181,60 @@
     {\normalsize}[\vspace{2ex}]
 
 
+% ====== Portadas ======
+% La plantilla oficial (Word) arma las portadas como una tabla de dos columnas:
+% el logo va en la banda izquierda y el texto SIEMPRE a la derecha de la línea
+% vertical, hasta el margen derecho. Las tres piezas (línea, logo y texto) se
+% derivan de \coverbandwidth, de modo que el texto nunca cruce la línea ni se
+% quede corto antes del margen.
+\newlength{\coverbandwidth}   % ancho de la banda del logo (margen izq. -> línea)
+\setlength{\coverbandwidth}{4.35cm}
+\newlength{\covergutter}      % separación entre la línea vertical y el texto
+\setlength{\covergutter}{0.4cm}
+\newlength{\coverruleoffset}  % del borde izquierdo de la página a la línea vertical
+\newlength{\covertextwidth}   % ancho del bloque de texto (línea -> margen derecho)
+
+% Encabezado de portada. #1: líneas de identificación (universidad, escuela y,
+% si corresponde, departamento).
+\newcommand{\coverheader}[1]{%
+  % 1in+\oddsidemargin es el margen izquierdo que fija geometry (documento a una cara)
+  \setlength{\coverruleoffset}{\dimexpr 1in+\oddsidemargin+\coverbandwidth\relax}%
+  \setlength{\covertextwidth}{\dimexpr\textwidth-\coverbandwidth-\covergutter\relax}%
+  % \noindent va antes del tikzpicture: su caja ya abre el párrafo y, sin esto,
+  % la sangría de 1,27 cm empuja el encabezado fuera del margen derecho.
+  \noindent
+  \begin{tikzpicture}[remember picture, overlay]
+    \draw[thin] ([xshift=\the\coverruleoffset, yshift=-2.5cm]current page.north west)
+    -- ([xshift=\the\coverruleoffset, yshift=2.5cm]current page.south west);
+  \end{tikzpicture}%
+  \begin{minipage}{\coverbandwidth}
+    \raggedleft % el logo se apega a la línea vertical, como en la plantilla
+    \includegraphics[width=2.3cm]{content/logo.png}\hspace*{0.2cm}%
+  \end{minipage}%
+  \hspace{\covergutter}%
+  \begin{minipage}{\covertextwidth}
+    \raggedright
+    #1
+  \end{minipage}
+
+  \vspace{0.2cm}
+  \hrule
+}
+
+% Cuerpo de portada. Alinea el bloque de texto con la banda del encabezado, de
+% modo que arranque a la derecha de la línea vertical y termine en el margen
+% derecho. \coverbandwidth/\covergutter/\covertextwidth los fija \coverheader,
+% que siempre precede a este bloque en la página.
+\newenvironment{coverbody}{%
+  \par\noindent
+  \hspace*{\dimexpr\coverbandwidth+\covergutter\relax}%
+  \begin{minipage}{\covertextwidth}%
+    \setlength{\parindent}{0pt}%
+    \raggedright
+}{%
+  \end{minipage}\par
+}
+
 % Configuracion imagenes
 \newcommand{\fig}[4][\relax]{
   \begin{figure}[H]

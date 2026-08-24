@@ -1,51 +1,53 @@
 
-% The counter keeps advancing even though the number is not printed here
+% La numeración sigue contando desde la portada, pero no se imprime aquí
 \thispagestyle{empty}
-\begin{tikzpicture}[remember picture, overlay]
-\draw[thin] ([xshift=6.85cm, yshift=-2.5cm]current page.north west)|-([xshift=6.85cm, yshift=2.5cm]current page.south west);
-\end{tikzpicture}
-\begin{minipage}{0.2\textwidth}
-    \includegraphics[width=2.3cm]{content/logo.png}
-\end{minipage}%
-\hspace{0cm} % Adjust horizontal spacing
-\begin{minipage}{0.75\textwidth}
-    \raggedright % Ensures text aligns to the left
-    PONTIFICIA UNIVERSIDAD CATÓLICA DE CHILE\\
-    ESCUELA DE INGENIERÍA\\
-    Departamento de [COMPLETAR]
-\end{minipage}
+\coverheader{%
+  PONTIFICIA UNIVERSIDAD CATÓLICA DE CHILE\\
+  ESCUELA DE INGENIERÍA\\
+  Departamento de [COMPLETAR]
+}
 
-\vspace{0.2cm}
-\hrule
-\vspace{4cm}
+% Los bloques se separan con glue elástica (\vfill) en vez de medidas fijas: el
+% sobrante de la página se reparte por igual, de modo que el conjunto
+% título/autor queda centrado entre el encabezado y el bloque de la comisión.
+% Ojo: tiene que ser \vfill (orden `fill') y no \stretch/\vfil, porque \newpage
+% agrega su propio \vfil y se llevaría una parte del sobrante.
+\vfill
 
-% Title
-\hspace{3.8cm}
-\begin{minipage}{\textwidth - 7.5cm}
-    % Title
-\begin{center}
-    {\LARGE\textbf{(TITULO TRABAJO}}
+\begin{coverbody}
+  % El \par va DENTRO del grupo de \LARGE/\large: si se cierra antes, el
+  % párrafo se rompe con el interlineado de 12pt y las líneas se solapan.
+  \begin{center}
+    {\LARGE\textbf{(TITULO TRABAJO)}\par}
 
     \vspace{2cm}
-    {\large\textbf{(NOMBRE COMPLETO)}}
-\end{center}
+    {\large\textbf{(NOMBRE COMPLETO)}\par}
+  \end{center}
+\end{coverbody}
 
-\vspace{1cm}
+\vfill
 
-Trabajo de Título presentado a la Comisión integrada por los profesores:
+\begin{coverbody}
+  Trabajo de Título presentado a la Comisión integrada por los profesores:
 
-\textbf{(PROFESOR 1)}\\
+  \textbf{(PROFESOR GUÍA)}\\
+  \textbf{(PROFESOR REPRESENTANTE DE PREGRADO)}\\
+  \textbf{(PROFESOR INVITADO)}\\
+  \textbf{(PROFESOR INVITADO)}
 
-\textbf{(PROFESOR 2)}\\
+  \vspace{1cm}
 
-\vspace{1cm}
+  Para completar las exigencias del título de
+  Ingeniero Civil en [COMPLETAR]
+\end{coverbody}
 
-Para completar las exigencias del título de
-Ingeniero Civil en [COMPLETAR]
+\vfill
 
-
-
-\vspace{1.7cm}
-Santiago de Chile, [MES], [AÑO]
-\end{minipage}
+% La guía pide solo el año: "Santiago de Chile, (año)"
+\begin{coverbody}
+  Santiago de Chile, [AÑO]
+\end{coverbody}
+% Deja la fecha un poco por encima del punto donde termina la línea
+% vertical (a 2,5 cm del borde inferior), como en la plantilla oficial.
+\vspace{0.5cm}
 \newpage
