@@ -12,7 +12,11 @@
   \renewcommand{\figurename}{Figura}
   \renewcommand*{\lstlistingname}{Código}
 }
-\RequirePackage[letterpaper, left=2.5cm, top=2.5cm, right=2.5cm, bottom=2.5cm]{geometry} % Configuración de márgenes
+% head=14.5pt reserva para la cabecera el \baselineskip que pide
+% scrlayer-scrpage: sin eso agranda \headheight y encoge \topmargin por su
+% cuenta, y el margen superior deja de ser el de 2,5 cm que exige la guía.
+\RequirePackage[letterpaper, left=2.5cm, top=2.5cm, right=2.5cm, bottom=2.5cm,
+  head=14.5pt]{geometry} % Configuración de márgenes
 \title{Informe trabajo de título}              % Título del documento
 
 % ====== Estilo de Texto ======
@@ -32,6 +36,10 @@
 \RequirePackage{soul}                       % Permite resaltar y decorar texto
 \RequirePackage{bold-extra}                 % Permite utilizar negritas en texto monoespaciado
 \RequirePackage{lscape}                     % Permite orientación horizontal de las páginas
+% scrlayer-scrpage debe cargarse ANTES de titlesec: ambos definen
+% \newpagestyle y, al revés, avisa "it seems that package `titlesec' is used
+% and has already defined `\newpagestyle'".
+\RequirePackage{scrlayer-scrpage}           % Cabeceras y pies de página
 \RequirePackage{titlesec}                   % Permite personalizar los estilos de sección
 \renewcommand\cftsecfont{\normalsize}       % Estilo indice
 \renewcommand\cftsecpagefont{\normalsize}   % Estilo indice
