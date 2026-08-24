@@ -21,12 +21,36 @@
 \ohead*{\thepage}
 
 
-\renewcommand{\cfttoctitlefont}{\hfill\Large}
-\renewcommand{\cftaftertoctitle}{\hfill\hfill}
-\renewcommand{\cftlottitlefont}{\hfill\Large}
-\renewcommand{\cftafterlottitle}{\hfill\hfill}
-\renewcommand{\cftloftitlefont}{\hfill\Large}
-\renewcommand{\cftafterloftitle}{\hfill\hfill}
+% Titulos de los indices: la plantilla oficial los centra con el formato de un
+% titulo de capitulo (Titulo 1: negrita, 12 pt), no en cuerpo mayor.
+\renewcommand{\cfttoctitlefont}{\hfill\normalsize\bfseries}
+\renewcommand{\cftlottitlefont}{\hfill\normalsize\bfseries}
+\renewcommand{\cftloftitlefont}{\hfill\normalsize\bfseries}
+
+% La guia rotula la columna de paginas con "Pag.", alineado a la derecha. Van
+% dos \hfill: \par cierra el renglon con un \unskip que descarta la ultima
+% glue, de modo que uno se pierde y el otro equilibra el \hfill de
+% \cft...titlefont; con uno solo el titulo terminaria pegado al margen derecho.
+\newcommand{\indexpagelabel}{%
+  \hfill\hfill\par\normalfont\normalsize\vspace{1ex}\hfill Pág.\par}
+\renewcommand{\cftaftertoctitle}{\indexpagelabel}
+\renewcommand{\cftafterlottitle}{\indexpagelabel}
+\renewcommand{\cftafterloftitle}{\indexpagelabel}
+
+% Entradas de los indices como en la guia: "I. TITULO" en el indice general y
+% "Tabla 1.1: ..." / "Figura 1.1: ..." en los de tablas y figuras.
+\renewcommand{\cftsecaftersnum}{.}
+\renewcommand{\cfttabpresnum}{Tabla~}
+\renewcommand{\cfttabaftersnum}{:}
+\renewcommand{\cftfigpresnum}{Figura~}
+\renewcommand{\cftfigaftersnum}{:}
+% Ancho reservado al numero: debe caber la etiqueta mas ancha, que es la de los
+% anexos ("Tabla A.1:" / "Figura A.1:") y dejar aire antes del titulo. Las
+% letras son mas anchas que los digitos, y si el numero desborda la caja empuja
+% la linea (overfull \hbox). En el indice general el numero mas ancho es "III.".
+\cftsetindents{section}{0em}{2.6em}
+\cftsetindents{table}{0em}{6em}
+\cftsetindents{figure}{0em}{6.8em}
 
 
 \begin{document}
@@ -45,16 +69,19 @@
 \input{content/agradecimientos}
 
 %%%%%%%%%%%%%%%%% INDICES %%%%%%%%%%%%%%%%%
+% El indice general no se lista dentro de si mismo: en la guia parte en
+% DEDICATORIA y sigue en INDICE DE TABLAS.
 \renewcommand{\contentsname}{INDICE GENERAL} % Center the title
-\addcontentsline{toc}{section}{INDICE GENERAL}
 \tableofcontents \newpage
 
-%\renewcommand{\listtablename}{INDICE DE TABLAS} % Center the title
-%\addcontentsline{toc}{section}{INDICE DE TABLAS}
-%\listoftables \newpage
+% La guia exige el indice de tablas, igual que el de figuras. El centrado lo
+% pone \cftlottitlefont, no un \begin{center} dentro del nombre.
+\renewcommand{\listtablename}{INDICE DE TABLAS}
+\tocsection{INDICE DE TABLAS}
+\listoftables \newpage
 
-\renewcommand{\listfigurename}{\begin{center}INDICE DE FIGURAS\end{center}} % Center the title
-\addcontentsline{toc}{section}{INDICE DE FIGURAS}
+\renewcommand{\listfigurename}{INDICE DE FIGURAS}
+\tocsection{INDICE DE FIGURAS}
 \listoffigures \newpage
 
 
