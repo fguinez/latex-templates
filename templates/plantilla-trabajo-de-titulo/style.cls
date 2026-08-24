@@ -148,6 +148,14 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%% OTROS %%%%%%%%%%%%%%%%%%%%%%%
+% La guía numera los capítulos con romanos (I., II.) y los subniveles con
+% árabigos referidos al capítulo (1.1, 1.1.1). Por eso \thesubsection no puede
+% construirse sobre \thesection: heredaría el romano y daría "I.1".
+\renewcommand{\thesection}{\Roman{section}}
+\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
+\renewcommand{\thesubsubsection}{%
+  \arabic{section}.\arabic{subsection}.\arabic{subsubsection}}
+
 % Configuramos el "doble espacio" con "2ex"
 \titleformat{\section}[hang]
     {\bfseries}
@@ -235,8 +243,11 @@
 % https://tex.stackexchange.com/questions/28333/continuous-v-per-chapter-section-numbering-of-figures-tables-and-other-docume
 \setcounter{figure}{0}
 \setcounter{table}{0}
-\renewcommand{\thefigure}{\arabic{section}-\arabic{figure}}
-\renewcommand{\thetable}{\arabic{section}-\arabic{table}}
+% La guía numera figuras y tablas como "Figura 1.1" / "Tabla 1.1": capítulo y
+% correlativo separados por punto. \arabic{section} se mantiene aunque el
+% capítulo se imprima en romanos.
+\renewcommand{\thefigure}{\arabic{section}.\arabic{figure}}
+\renewcommand{\thetable}{\arabic{section}.\arabic{table}}
 %%%%%%%%%%%%%%%%%%%%%%% EXTRA %%%%%%%%%%%%%%%%%%%%%%%
 % Desactiva errores de overfull y underfull.
 \hfuzz=\maxdimen
@@ -257,6 +268,8 @@
     \tocsection{Anexo #1. #2} % Add to the table of contents
     \setcounter{subsection}{0} % Reset subsection counter
     \setcounter{figure}{0} % Reset figure counter for the annex
+    \setcounter{table}{0} % Reset table counter for the annex
     \renewcommand{\thesubsection}{#1.\arabic{subsection}} % Set subsection numbering as A.1, A.2, etc.
     \renewcommand{\thefigure}{#1.\arabic{figure}} % Set figure numbering as A.1, A.2, etc..
+    \renewcommand{\thetable}{#1.\arabic{table}} % Set table numbering as A.1, A.2, etc..
 }
