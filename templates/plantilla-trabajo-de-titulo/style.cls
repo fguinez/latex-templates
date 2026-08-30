@@ -12,11 +12,8 @@
   \renewcommand{\figurename}{Figura}
   \renewcommand*{\lstlistingname}{Código}
 }
-% head=14.5pt reserva para la cabecera el \baselineskip que pide
-% scrlayer-scrpage: sin eso agranda \headheight y encoge \topmargin por su
-% cuenta, y el margen superior deja de ser el de 2,5 cm que exige la guía.
-\RequirePackage[letterpaper, left=2.5cm, top=2.5cm, right=2.5cm, bottom=2.5cm,
-  head=14.5pt]{geometry} % Configuración de márgenes
+% head=14.5pt reserva la cabecera y mantiene el margen superior de 2,5 cm que exige la guía
+\RequirePackage[letterpaper, left=2.5cm, top=2.5cm, right=2.5cm, bottom=2.5cm, head=14.5pt]{geometry} % Configuración de márgenes
 \title{Informe trabajo de título}              % Título del documento
 
 % ====== Estilo de Texto ======
@@ -34,18 +31,10 @@
 \RequirePackage{mfirstuc}                    % Agrega comandos para capitalizar
 \RequirePackage{dirtytalk}                  % Facilita la adición de comillas
 \RequirePackage{soul}                       % Permite resaltar y decorar texto
-% Espacia las letras de una palabra sin escribir espacios en el texto (la guía
-% titula la portadilla de anexos "A N E X O S"). No se usa \textls de microtype
-% porque XeLaTeX no puede espaciar una fuente Type 1 heredada como ptm: avisa
-% "is a legacy font. Cannot letterspace it" y la deja sin espaciar. soul
-% funciona en cualquier motor.
-\sodef\spacedletters{}{0.4em}{0.5em}{0.5em}
+\sodef\spacedletters{}{0.4em}{0.5em}{0.5em}  % Espacia las letras de una palabra: la guía titula los anexos "A N E X O S"
 \RequirePackage{bold-extra}                 % Permite utilizar negritas en texto monoespaciado
 \RequirePackage{lscape}                     % Permite orientación horizontal de las páginas
-% scrlayer-scrpage debe cargarse ANTES de titlesec: ambos definen
-% \newpagestyle y, al revés, avisa "it seems that package `titlesec' is used
-% and has already defined `\newpagestyle'".
-\RequirePackage{scrlayer-scrpage}           % Cabeceras y pies de página
+\RequirePackage{scrlayer-scrpage}           % Cabeceras y pies de página (va antes de titlesec: ambos definen \newpagestyle)
 \RequirePackage{titlesec}                   % Permite personalizar los estilos de sección
 \renewcommand\cftsecfont{\normalsize}       % Estilo indice
 \renewcommand\cftsecpagefont{\normalsize}   % Estilo indice
@@ -79,15 +68,9 @@
 \RequirePackage{wallpaper}                  % Permite utilizar fondos de pantalla en el documento
 \RequirePackage{ifthen}                     % Soporte para condicionales en el documento
 \RequirePackage[shortlabels]{enumitem}      % Personalización de listas enumeradas y con viñetas
-% citecolor=black: por omisión hyperref imprime las citas en verde, y la guía no
-% admite texto de color en el cuerpo. Solo las URLs, que APA 7 pide dejar
-% visibles en las referencias, quedan en azul.
-\RequirePackage[colorlinks=true, linkcolor=black, citecolor=black,
-  urlcolor=blue]{hyperref} % Enlaces clicables
-% Ancla + entrada de índice para los títulos sin numerar (\section*): sin
-% \phantomsection el enlace del índice apunta al último destino conocido, que
-% suele ser la página anterior.
-\newcommand{\tocsection}[1]{\phantomsection\addcontentsline{toc}{section}{#1}}
+% La guía no admite texto de color en el cuerpo; solo las URLs de las referencias quedan en azul, como pide APA 7
+\RequirePackage[colorlinks=true, linkcolor=black, citecolor=black, urlcolor=blue]{hyperref} % Enlaces clicables
+\newcommand{\tocsection}[1]{\phantomsection\addcontentsline{toc}{section}{#1}} % Agrega al índice un título sin numerar
 \RequirePackage{multicol}                   % Soporte para multicolumnas
 \RequirePackage[per-mode = symbol]{siunitx} % Para manejar unidades SI
 \RequirePackage{commath}                    % Mejora la estética en matemáticas
@@ -158,13 +141,10 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%% OTROS %%%%%%%%%%%%%%%%%%%%%%%
-% La guía numera los capítulos con romanos (I., II.) y los subniveles con
-% árabigos referidos al capítulo (1.1, 1.1.1). Por eso \thesubsection no puede
-% construirse sobre \thesection: heredaría el romano y daría "I.1".
+% La guía numera los capítulos con romanos (I., II.) y los subniveles con árabigos referidos al capítulo (1.1, 1.1.1)
 \renewcommand{\thesection}{\Roman{section}}
 \renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
-\renewcommand{\thesubsubsection}{%
-  \arabic{section}.\arabic{subsection}.\arabic{subsubsection}}
+\renewcommand{\thesubsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}}
 
 % Configuramos el "doble espacio" con "2ex"
 \titleformat{\section}[hang]
@@ -186,11 +166,8 @@
 
 
 % ====== Portadas ======
-% La plantilla oficial (Word) arma las portadas como una tabla de dos columnas:
-% el logo va en la banda izquierda y el texto SIEMPRE a la derecha de la línea
-% vertical, hasta el margen derecho. Las tres piezas (línea, logo y texto) se
-% derivan de \coverbandwidth, de modo que el texto nunca cruce la línea ni se
-% quede corto antes del margen.
+% La plantilla oficial (Word) pone el logo en una banda a la izquierda y el texto
+% a la derecha de la línea vertical, hasta el margen derecho.
 \newlength{\coverbandwidth}   % ancho de la banda del logo (margen izq. -> línea)
 \setlength{\coverbandwidth}{4.35cm}
 \newlength{\covergutter}      % separación entre la línea vertical y el texto
@@ -198,21 +175,17 @@
 \newlength{\coverruleoffset}  % del borde izquierdo de la página a la línea vertical
 \newlength{\covertextwidth}   % ancho del bloque de texto (línea -> margen derecho)
 
-% Encabezado de portada. #1: líneas de identificación (universidad, escuela y,
-% si corresponde, departamento).
+% Encabezado de portada. #1: universidad, escuela y, si corresponde, departamento.
 \newcommand{\coverheader}[1]{%
-  % 1in+\oddsidemargin es el margen izquierdo que fija geometry (documento a una cara)
   \setlength{\coverruleoffset}{\dimexpr 1in+\oddsidemargin+\coverbandwidth\relax}%
   \setlength{\covertextwidth}{\dimexpr\textwidth-\coverbandwidth-\covergutter\relax}%
-  % \noindent va antes del tikzpicture: su caja ya abre el párrafo y, sin esto,
-  % la sangría de 1,27 cm empuja el encabezado fuera del margen derecho.
   \noindent
   \begin{tikzpicture}[remember picture, overlay]
     \draw[thin] ([xshift=\the\coverruleoffset, yshift=-2.5cm]current page.north west)
     -- ([xshift=\the\coverruleoffset, yshift=2.5cm]current page.south west);
   \end{tikzpicture}%
   \begin{minipage}{\coverbandwidth}
-    \raggedleft % el logo se apega a la línea vertical, como en la plantilla
+    \raggedleft % el logo se apega a la línea vertical, como en la plantilla oficial
     \includegraphics[width=2.3cm]{content/logo.png}\hspace*{0.2cm}%
   \end{minipage}%
   \hspace{\covergutter}%
@@ -225,10 +198,7 @@
   \hrule
 }
 
-% Cuerpo de portada. Alinea el bloque de texto con la banda del encabezado, de
-% modo que arranque a la derecha de la línea vertical y termine en el margen
-% derecho. \coverbandwidth/\covergutter/\covertextwidth los fija \coverheader,
-% que siempre precede a este bloque en la página.
+% Cuerpo de portada. Usa las medidas que fija \coverheader, que siempre lo precede.
 \newenvironment{coverbody}{%
   \par\noindent
   \hspace*{\dimexpr\coverbandwidth+\covergutter\relax}%
@@ -307,9 +277,7 @@
 % https://tex.stackexchange.com/questions/28333/continuous-v-per-chapter-section-numbering-of-figures-tables-and-other-docume
 \setcounter{figure}{0}
 \setcounter{table}{0}
-% La guía numera figuras y tablas como "Figura 1.1" / "Tabla 1.1": capítulo y
-% correlativo separados por punto. \arabic{section} se mantiene aunque el
-% capítulo se imprima en romanos.
+% La guía rotula figuras y tablas como "Figura 1.1" / "Tabla 1.1": capítulo y correlativo separados por punto
 \renewcommand{\thefigure}{\arabic{section}.\arabic{figure}}
 \renewcommand{\thetable}{\arabic{section}.\arabic{table}}
 %%%%%%%%%%%%%%%%%%%%%%% EXTRA %%%%%%%%%%%%%%%%%%%%%%%

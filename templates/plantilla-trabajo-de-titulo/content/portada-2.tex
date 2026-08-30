@@ -1,5 +1,5 @@
 
-% La numeración sigue contando desde la portada, pero no se imprime aquí
+% The counter keeps advancing even though the number is not printed here
 \thispagestyle{empty}
 \coverheader{%
   PONTIFICIA UNIVERSIDAD CATÓLICA DE CHILE\\
@@ -7,16 +7,9 @@
   Departamento de [COMPLETAR]
 }
 
-% Los bloques se separan con glue elástica (\vfill) en vez de medidas fijas: el
-% sobrante de la página se reparte por igual, de modo que el conjunto
-% título/autor queda centrado entre el encabezado y el bloque de la comisión.
-% Ojo: tiene que ser \vfill (orden `fill') y no \stretch/\vfil, porque \newpage
-% agrega su propio \vfil y se llevaría una parte del sobrante.
 \vfill
 
 \begin{coverbody}
-  % El \par va DENTRO del grupo de \LARGE/\large: si se cierra antes, el
-  % párrafo se rompe con el interlineado de 12pt y las líneas se solapan.
   \begin{center}
     {\LARGE\textbf{(TITULO TRABAJO)}\par}
 
@@ -47,7 +40,5 @@
 \begin{coverbody}
   Santiago de Chile, [AÑO]
 \end{coverbody}
-% Deja la fecha un poco por encima del punto donde termina la línea
-% vertical (a 2,5 cm del borde inferior), como en la plantilla oficial.
 \vspace{0.5cm}
 \newpage

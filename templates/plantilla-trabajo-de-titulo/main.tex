@@ -21,33 +21,24 @@
 \ohead*{\thepage}
 
 
-% Titulos de los indices: la plantilla oficial los centra con el formato de un
-% titulo de capitulo (Titulo 1: negrita, 12 pt), no en cuerpo mayor.
+% La plantilla oficial centra los títulos de los índices con formato de título de capítulo (negrita, 12 pt)
 \renewcommand{\cfttoctitlefont}{\hfill\normalsize\bfseries}
 \renewcommand{\cftlottitlefont}{\hfill\normalsize\bfseries}
 \renewcommand{\cftloftitlefont}{\hfill\normalsize\bfseries}
 
-% La guia rotula la columna de paginas con "Pag.", alineado a la derecha. Van
-% dos \hfill: \par cierra el renglon con un \unskip que descarta la ultima
-% glue, de modo que uno se pierde y el otro equilibra el \hfill de
-% \cft...titlefont; con uno solo el titulo terminaria pegado al margen derecho.
-\newcommand{\indexpagelabel}{%
-  \hfill\hfill\par\normalfont\normalsize\vspace{1ex}\hfill Pág.\par}
+% La guía rotula la columna de páginas de cada índice con "Pág.", alineado a la derecha
+\newcommand{\indexpagelabel}{\hfill\hfill\par\normalfont\normalsize\vspace{1ex}\hfill Pág.\par}
 \renewcommand{\cftaftertoctitle}{\indexpagelabel}
 \renewcommand{\cftafterlottitle}{\indexpagelabel}
 \renewcommand{\cftafterloftitle}{\indexpagelabel}
 
-% Entradas de los indices como en la guia: "I. TITULO" en el indice general y
-% "Tabla 1.1: ..." / "Figura 1.1: ..." en los de tablas y figuras.
+% La guía lista las entradas como "I. TÍTULO" en el índice general y "Tabla 1.1: ..." / "Figura 1.1: ..." en los demás
 \renewcommand{\cftsecaftersnum}{.}
 \renewcommand{\cfttabpresnum}{Tabla~}
 \renewcommand{\cfttabaftersnum}{:}
 \renewcommand{\cftfigpresnum}{Figura~}
 \renewcommand{\cftfigaftersnum}{:}
-% Ancho reservado al numero: debe caber la etiqueta mas ancha, que es la de los
-% anexos ("Tabla A.1:" / "Figura A.1:") y dejar aire antes del titulo. Las
-% letras son mas anchas que los digitos, y si el numero desborda la caja empuja
-% la linea (overfull \hbox). En el indice general el numero mas ancho es "III.".
+% Ancho reservado al número: debe caber la etiqueta más ancha, la de los anexos ("Tabla A.1:" / "Figura A.1:")
 \cftsetindents{section}{0em}{2.6em}
 \cftsetindents{table}{0em}{6em}
 \cftsetindents{figure}{0em}{6.8em}
@@ -69,13 +60,11 @@
 \input{content/agradecimientos}
 
 %%%%%%%%%%%%%%%%% INDICES %%%%%%%%%%%%%%%%%
-% El indice general no se lista dentro de si mismo: en la guia parte en
-% DEDICATORIA y sigue en ÍNDICE DE TABLAS.
+% En la guía el índice general no se lista a sí mismo: parte en DEDICATORIA y sigue en ÍNDICE DE TABLAS
 \renewcommand{\contentsname}{ÍNDICE GENERAL} % Center the title
 \tableofcontents \newpage
 
-% La guia exige el indice de tablas, igual que el de figuras. El centrado lo
-% pone \cftlottitlefont, no un \begin{center} dentro del nombre.
+% La guía exige el índice de tablas, igual que el de figuras
 \renewcommand{\listtablename}{ÍNDICE DE TABLAS}
 \tocsection{ÍNDICE DE TABLAS}
 \listoftables \newpage
